@@ -5,7 +5,6 @@ export default {
     extend: {
       boxShadow: {
         "3xl": "0 0px 20px 5px rgba(79, 70, 229, .5)",
-        "4xl": "inset 2px 5px 10px rgb(5, 5, 5)"
       },
       keyframes: {
         overlay: {
@@ -16,15 +15,19 @@ export default {
         modal: {
           "0%, 66%": {
             opacity: "0",
-            visibility: 'hidden',
-            transform: "translate(-50% -40%)",
+            visibility: "hidden",
+            transform: "translate(-50%, -40%)",
           },
-          '100%': {
-            opacity: '1',
-            visibility: 'visible'
+          "100%": {
+            opacity: "1",
+            visibility: "visible"
           }
         },
       },
+      animation: {
+        "overlay": "overlay 1s both",
+        "modal": "modal 1s"
+      }
     },
   },
   plugins: [],

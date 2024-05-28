@@ -14,7 +14,7 @@ const Modal = ({ name }) => {
       ref={modalRef}
       onClick={(e) => modalRef.current === e.target && dispatch(closeModal())}
       className={classNames(
-        "fixed w-full h-full bg-black/75 inset-0 transition-all dutation-500 z-10 opacity-0 invisible flex items-center justify-center p-5",
+        "fixed bg-black/75 inset-0  dutation-500 z-10 opacity-0 invisible",
         {
           "!opacity-100 !visible animate-overlay": open,
         }
@@ -22,13 +22,13 @@ const Modal = ({ name }) => {
     >
       <div
         className={classNames(
-          " bg-white w-full max-w-[500px] rounded-xl p-5 text-black opacity-0 invisible z-20 duration-500 transition-all",
+          "bg-white w-[90%] max-w-[500px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl p-5 text-black opacity-0 invisible z-20 duration-500 transition-all",
           {
             "!opacity-100 !visible animate-modal": open,
           }
         )}
       >
-        <currentModal.element />
+        <currentModal.element/>
       </div>
     </div>
   );

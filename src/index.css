@@ -12,7 +12,7 @@
 }
 
 .input{
-    @apply bg-transparent border-0 outline-0 text-lg font-medium px-5 w-full capitalize
+    @apply bg-transparent border-0 outline-0 text-lg font-medium px-5 w-full
 }
 
 .field{
@@ -21,4 +21,8 @@
 
 .error{
     @apply text-red-600 ml-2 text-xs flex items-center gap-0.5
+}
+
+.submit-btn{
+    @apply bg-indigo-500 text-white font-medium text-xl py-1 rounded-lg border-2 hover:border-white outline  outline-indigo-500 border-indigo-500 transition-all duration-500
 }
