@@ -7,13 +7,23 @@ import { RxLockClosed } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "../../stores/modal";
 import { UserSchema } from "../../validations";
-import { login } from "../../firebase";
+import { googleAuth, login } from "../../firebase";
 import { loginUser } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const [count, setCount] = useState(3)
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const signInPopup = async () => {
+    const user = await googleAuth()
+    if (user) {
+      dispatch(loginUser(user));
+      dispatch(closeModal());
+      navigate("/teacher", { replace: true });
+    }
+  }
   return (
     <div>
       <h1 className="text-4xl text-center font-bold mb-5">Login</h1>
@@ -29,6 +39,12 @@ const Login = () => {
             dispatch(closeModal());
             navigate("/teacher", { replace: true });
           }
+          else{
+            setCount(count => count - 1)
+            if(count == 0){
+              dispatch(openModal('send-email'))
+            }
+          }
         }}
       >
         <Form className="flex flex-col gap-3">
@@ -41,8 +57,13 @@ const Login = () => {
           <button type="submit" className="submit-btn">
             Login
           </button>
+          <div className='relative after:absolute after:h-[2px] after:w-[45%] after:bg-black/40 after:left-0 after:top-1/2 after:-translate-y-1/2 text-center before:absolute before:h-[2px] before:w-[45%] before:bg-black/40 before:right-0 before:top-1/2 before:-translate-y-1/2 text-xl font-medium my-2'>Or</div>
+          <button type='button' className="border-2 hover:bg-black/10 transition-all duration-500 border-black/50 flex items-center justify-center gap-3 text-xl font-medium py-2 rounded" onClick={signInPopup}>
+            <FcGoogle size={30}/>
+            Google
+          </button>
           <p className="text-center">
-            I don't have an account{" "}
+            I don't have an account
             <button
               type="button"
               className="text-indigo-500 font-medium underline"

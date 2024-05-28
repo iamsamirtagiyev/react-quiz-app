@@ -1,4 +1,5 @@
 import Login from "./components/Modals/Login";
+import SendEmail from "./components/Modals/SendEmail";
 import SignUp from "./components/Modals/SignUp";
 
 export const modals = [
@@ -9,5 +10,9 @@ export const modals = [
     {
         name: 'signup',
         element: SignUp
+    },
+    {
+        name: 'send-email',
+        element: SendEmail
     },
 ]

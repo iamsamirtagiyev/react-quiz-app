@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
 import toast from "react-hot-toast";
 
 const firebaseConfig = {
@@ -56,6 +56,17 @@ export const googleAuth = async() => {
   try{
     const { user } = await signInWithPopup(auth, provider)
     return user
+  }
+  catch(error){
+    toast.error(error.code)
+  }
+}
+
+export const sendEmail = async(email) => {
+  try{
+    await sendPasswordResetEmail(auth, email)
+    toast.success('The email was sent successfully. Please check')
+    return true
   }
   catch(error){
     toast.error(error.code)
