@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
 import InputText from "../form/InputText";
 import { FaRegUser } from "react-icons/fa6";
@@ -12,10 +12,12 @@ import { googleAuth, signup, update } from "../../firebase";
 import { loginUser } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import Loader from "../Loader";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [show, setShow] = useState(false)
 
   const signInPopup = async () => {
     const user = await googleAuth()
@@ -36,10 +38,17 @@ const SignUp = () => {
           password: "",
         }}
         onSubmit={async (values) => {
+          setShow(true)
           const user = await signup(values.email, values.password);
           await update({ displayName: `${values.surname} ${values.name}` });
+          setShow(false)
           if (user) {
-            dispatch(loginUser(user));
+            dispatch(loginUser({
+              displayName: user.displayName,
+              email: user.email,
+              photoURL: user.photoURL,
+              uid: user.uid
+            }));
             dispatch(closeModal());
             navigate("/teacher", { replace: true });
           }
@@ -58,7 +67,7 @@ const SignUp = () => {
             icon={<RxLockClosed />}
           />
           <button type="submit" className="submit-btn">
-            Sign Up
+            {show ? <Loader/> : 'Sign Up'}
           </button>
           <div className='relative after:absolute after:h-[2px] after:w-[45%] after:bg-black/40 after:left-0 after:top-1/2 after:-translate-y-1/2 text-center before:absolute before:h-[2px] before:w-[45%] before:bg-black/40 before:right-0 before:top-1/2 before:-translate-y-1/2 text-xl font-medium my-2'>Or</div>
           <button type="button" className="border-2 hover:bg-black/10 transition-all duration-500 border-black/50 flex items-center justify-center gap-3 text-xl font-medium py-2 rounded" onClick={signInPopup}>

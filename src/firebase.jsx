@@ -13,7 +13,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-const auth = getAuth();
+export const auth = getAuth();
 const provider = new GoogleAuthProvider()
 
 export const signup = async (email, password) => {
@@ -36,17 +36,17 @@ export const login = async (email, password) => {
 
 export const logout = async () => {
   try {
-    const { user } = await signOut(auth)
+    await signOut(auth)
     return true
   } catch (error) {
-    toast.error(error.code)
+    // toast.error(error.code)
   }
 }
 
 export const update = async data =>{
   try {
     await updateProfile(auth.currentUser, data)
-    return true
+    toast.success('Your profile has been successfully updated')
   } catch (error) {
     toast.error(error.code)
   }

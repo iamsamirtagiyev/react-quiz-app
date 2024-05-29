@@ -24,5 +24,9 @@
 }
 
 .submit-btn{
-    @apply bg-indigo-500 text-white font-medium text-xl py-1 rounded-lg border-2 hover:border-white outline  outline-indigo-500 border-indigo-500 transition-all duration-500
+    @apply bg-indigo-500 text-white font-medium text-xl py-1 h-10 rounded-lg border-2 hover:border-white outline  outline-indigo-500 border-indigo-500 transition-all duration-500 flex items-center gap-2 justify-center
+}
+
+.action-btn{
+    @apply bg-indigo-500 rounded flex items-center justify-center gap-2 px-2.5 py-1.5 font-medium hover:bg-indigo-600 transition-all duration-500 text-nowrap
 }
