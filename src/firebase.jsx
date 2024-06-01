@@ -1,6 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import toast from "react-hot-toast";
+import { store } from './stores/index'
+import { loginUser, logoutUser } from "./stores/auth";
+import { closeModal } from "./stores/modal";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCpL6yo9mgD93lWD5FxjsWxO_DEgpySNU",
@@ -12,6 +16,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 export const auth = getAuth();
 const provider = new GoogleAuthProvider()
@@ -69,6 +74,27 @@ export const sendEmail = async(email) => {
     return true
   }
   catch(error){
+    toast.error(error.code)
+  }
+}
+
+onAuthStateChanged(auth, user => {
+  if(user){
+    store.dispatch(loginUser({
+      displayName: user.displayName,
+      email: user.email,
+      uid: user.uid
+    }))
+  }
+  else{
+    store.dispatch(logoutUser())
+  }
+})
+
+export const addData = async (data) => {
+  try {
+    await addDoc(collection(db, 'quiz'), data)
+  } catch (error) {
     toast.error(error.code)
   }
 }

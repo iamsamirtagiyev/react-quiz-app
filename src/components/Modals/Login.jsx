@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "../../stores/modal";
 import { LoginSchema } from "../../validations";
 import { auth, googleAuth, login } from "../../firebase";
-import { loginUser } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Loader from "../Loader";
@@ -21,14 +20,6 @@ const Login = () => {
   const signInPopup = async () => {
     const user = await googleAuth();
     if (user) {
-      dispatch(
-        loginUser({
-          displayName: auth.currentUser.displayName,
-          email: auth.currentUser.email,
-          photoURL: auth.currentUser.photoURL,
-          uid: auth.currentUser.uid,
-        })
-      );
       dispatch(closeModal());
       navigate("/teacher", { replace: true });
     }
@@ -46,14 +37,6 @@ const Login = () => {
           const user = await login(values.email, values.password);
           setShow(false);
           if (user) {
-            dispatch(
-              loginUser({
-                displayName: auth.currentUser.displayName,
-                email: auth.currentUser.email,
-                photoURL: auth.currentUser.photoURL,
-                uid: auth.currentUser.uid,
-              })
-            );
             dispatch(closeModal());
             navigate("/teacher", { replace: true });
           } else {

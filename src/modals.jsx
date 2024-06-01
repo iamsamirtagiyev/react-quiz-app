@@ -1,8 +1,7 @@
+import AddQuiz from "./components/Modals/AddQuiz";
 import Login from "./components/Modals/Login";
 import SendEmail from "./components/Modals/SendEmail";
 import SignUp from "./components/Modals/SignUp";
-import Update from "./components/Modals/Update";
-
 export const modals = [
     {
         name: 'login',
@@ -17,7 +16,7 @@ export const modals = [
         element: SendEmail
     },
     {
-        name: 'update',
-        element: Update
+        name: 'add-quiz',
+        element: AddQuiz
     },
 ]

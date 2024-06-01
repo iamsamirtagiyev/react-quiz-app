@@ -22,7 +22,7 @@ const Modal = ({ name }) => {
     >
       <div
         className={classNames(
-          "bg-white w-[90%] max-w-[500px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl p-5 text-black opacity-0 invisible z-20 duration-500 transition-all",
+          "bg-white w-[90%] max-w-[500px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl p-5 text-black opacity-0 invisible z-20 duration-500 transition-all max-h-96 overflow-auto",
           {
             "!opacity-100 !visible animate-modal": open,
           }

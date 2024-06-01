@@ -1,11 +1,11 @@
 import { useField } from "formik";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { TbPhotoPlus } from "react-icons/tb";
 import { useSelector } from "react-redux";
-
+import { auth } from '../../firebase'
 const InputFile = ({ ...props }) => {
   const { user } = useSelector(state => state.auth)
-  const [image, setImage] = useState(user.photoURL || 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
+  const [image, setImage] = useState(auth.currentUser.photoURL ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png')
   const [field, meta, helpers] = useField(props);
   const changeHandle = e => {
     setImage(URL.createObjectURL(e.target.files[0]))

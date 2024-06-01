@@ -9,7 +9,6 @@ import { BiEnvelope } from "react-icons/bi";
 import { useDispatch } from "react-redux";
 import { closeModal, openModal } from "../../stores/modal";
 import { googleAuth, signup, update } from "../../firebase";
-import { loginUser } from "../../stores/auth";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import Loader from "../Loader";
@@ -22,7 +21,6 @@ const SignUp = () => {
   const signInPopup = async () => {
     const user = await googleAuth()
     if (user) {
-      dispatch(loginUser(user));
       dispatch(closeModal());
       navigate("/teacher", { replace: true });
     }
@@ -43,12 +41,6 @@ const SignUp = () => {
           await update({ displayName: `${values.surname} ${values.name}` });
           setShow(false)
           if (user) {
-            dispatch(loginUser({
-              displayName: user.displayName,
-              email: user.email,
-              photoURL: user.photoURL,
-              uid: user.uid
-            }));
             dispatch(closeModal());
             navigate("/teacher", { replace: true });
           }
