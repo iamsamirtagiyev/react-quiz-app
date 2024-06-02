@@ -11,7 +11,6 @@ const AddQuiz = () => {
   const [step, setStep] = useState(1);
   const [quiz, setQuiz] = useState([]);
   const [show, setShow] = useState(false);
-  const random = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
 
   return (
     <Formik
@@ -38,7 +37,7 @@ const AddQuiz = () => {
           setQuiz((quiz) => [...quiz, values]);
           if (quiz.length > 5) {
             setShow(true);
-            await addData({
+            await addData('quiz', {
               quiz,
               id: auth.currentUser.uid,
               code: random,
@@ -96,7 +95,7 @@ const AddQuiz = () => {
               (step === 2) && (
                 <>
                   <span className="text-center text-xl italic">Your OTP code</span>
-                  <h1 className="text-center text-5xl font-bold">{random}</h1>
+                  <h1 className="text-center text-5xl font-bold">{Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000}</h1>
                 </>
               )
             }

@@ -1,10 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, onAuthStateChanged } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { addDoc, collection, getFirestore, onSnapshot } from "firebase/firestore";
 import toast from "react-hot-toast";
 import { store } from './stores/index'
 import { loginUser, logoutUser } from "./stores/auth";
 import { closeModal } from "./stores/modal";
+import { setQuiz } from "./stores/quiz";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDCpL6yo9mgD93lWD5FxjsWxO_DEgpySNU",
@@ -91,11 +92,15 @@ onAuthStateChanged(auth, user => {
   }
 })
 
-export const addData = async (data) => {
+export const addData = async (data, name) => {
   try {
-    await addDoc(collection(db, 'quiz'), data)
+    await addDoc(collection(db, name), data)
   } catch (error) {
     toast.error(error.code)
   }
 }
+
+onSnapshot(collection(db, "quiz"), (doc) => {
+  store.dispatch(setQuiz(doc.docs.reduce((allQuiz, quiz) => [...allQuiz, quiz.data()], [])))
+});
 

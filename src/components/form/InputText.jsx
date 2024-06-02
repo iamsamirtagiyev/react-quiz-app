@@ -20,7 +20,6 @@ const InputText = ({ label, icon, ...props }) => {
           {icon}
         </span>
         <input
-          type="text"
           {...field}
           {...props}
           placeholder={label}

@@ -15,7 +15,7 @@ const StudentOrTeacher = () => {
 
   return (
     <div className="flex gap-2 items-center flex-col w-full px-5">
-      <button className="btn">
+      <button className="btn" onClick={() => dispatch(openModal('student'))}>
         <PiStudent/>
         Student
       </button>
