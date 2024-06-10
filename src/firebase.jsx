@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 export const auth = getAuth();
 const provider = new GoogleAuthProvider()
@@ -96,7 +96,7 @@ export const addData = async (data, name) => {
   try {
     await addDoc(collection(db, name), data)
   } catch (error) {
-    toast.error(error.code)
+    toast.error(error)
   }
 }
 

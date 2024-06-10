@@ -3,12 +3,14 @@ import React from "react";
 import InputText from "../form/InputText";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { getQuiz } from "../../stores/quiz";
-import { openModal } from "../../stores/modal"
+import { getQuiz, setStudent } from "../../stores/quiz";
+import { closeModal, openModal } from "../../stores/modal"
+import { useNavigate } from "react-router-dom";
 
 const Student = () => {
   const { allQuiz } = useSelector(state => state.quiz)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <div>
       <Formik
@@ -17,7 +19,12 @@ const Student = () => {
           const currentQuiz = allQuiz.find(s => s.code === values.otpCode)
           if(currentQuiz){
             dispatch(getQuiz(currentQuiz))
-            dispatch(openModal('quiz'))
+            dispatch(setStudent({
+              name: values.name,
+              code: values.otpCode
+            }))
+            dispatch(closeModal())
+            navigate('/quiz', { replace: true })
           }
           else{
             toast.error('Wrong code. Please try again')

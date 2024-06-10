@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     allQuiz: [],
-    quiz: false
+    quiz: false,
+    student: {}
 
 }
 
@@ -18,9 +19,12 @@ export const quiz = createSlice({
         },
         appendQuiz: (state, action) => {
             state.allQuiz = [...state.allQuiz, action.payload]
+        },
+        setStudent: (state, action) => {
+            state.student = action.payload
         }
     }
 })
 
-export const { setQuiz, appendQuiz, getQuiz } = quiz.actions
+export const { setQuiz, appendQuiz, getQuiz, setStudent } = quiz.actions
 export default quiz.reducer

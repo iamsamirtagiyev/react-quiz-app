@@ -20,6 +20,12 @@ const AddQuiz = () => {
         answer: "",
       }}
       onSubmit={(values, action) => {
+        if(!values.question){
+          return toast.error('write a question')
+        }
+        if(!values.answer){
+          return toast.error('show correct answer')
+        }
         if (values.options.length > 1) {
           setQuiz((quiz) => [...quiz, values]);
           action.resetForm();
@@ -35,7 +41,7 @@ const AddQuiz = () => {
 
         const submitHandle = async () => {
           setQuiz((quiz) => [...quiz, values]);
-          if (quiz.length > 5) {
+          if (quiz.length >= 5) {
             setShow(true);
             await addData('quiz', {
               quiz,
